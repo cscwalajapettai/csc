@@ -511,7 +511,7 @@
 
       /* Hero Mobile Adjustments */
       #hero {
-        padding-top: 10px;
+        padding-top: 0;
         min-height: auto;
       }
 
@@ -551,8 +551,29 @@
         display: none !important;
       }
 
+      /* ── Fix: Make marquee flow BELOW the mobile header ── */
       .sat-marquee {
-        top: 75px !important;
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        width: 100% !important;
+        z-index: 11;
+        margin-top: 0;
+        display: block;
+      }
+
+      /* Push hero body below the header+marquee area */
+      .hero-body-spacer {
+        display: block;
+      }
+
+      #hero {
+        padding-top: 0 !important;
+      }
+
+      /* Make the hero inner wrap start right after marquee */
+      #hero>.wrap:last-of-type {
+        padding-top: 16px;
       }
 
       .mobile-menu-trigger {
@@ -597,6 +618,45 @@
       .hero-content {
         margin-top: -30px;
       }
+
+      /* Fix free-banner text overflow on mobile */
+      .free-banner {
+        flex-direction: column !important;
+        gap: 16px !important;
+        padding: 20px 16px !important;
+        overflow: hidden;
+        text-align: center;
+      }
+
+      .free-title {
+        font-size: 17px !important;
+        line-height: 1.4 !important;
+        word-break: break-word;
+        white-space: normal;
+      }
+
+      .free-tag {
+        margin: 0 auto;
+      }
+
+      .free-pill {
+        width: 100%;
+        box-sizing: border-box;
+        justify-content: center;
+      }
+
+      .free-info {
+        width: 100%;
+        overflow: hidden;
+        word-wrap: break-word;
+      }
+
+      /* Fix process/steps heading space from WhatsApp button */
+      #process .section-head,
+      #process h2 {
+        padding-right: 65px;
+      }
+
     }
 
     /* Generic Image Modal */
@@ -713,7 +773,8 @@
   HERO
 ══════════════════════════════════ -->
   <section id="hero"
-    style="padding-top:105px;position:relative;background: url('assets/Frontoffice.jpg') no-repeat center center / cover;">
+    style="padding-top:105px;position:relative;background: url('assets/Frontoffice.jpg') no-repeat center center / cover;"
+    class="hero-section">
     <div
       style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,25,47,0.15) 0%,rgba(255,255,255,0.05) 100%);z-index:1;">
     </div>
@@ -727,11 +788,12 @@
     </div>
 
     <div class="mobile-menu-trigger" onclick="toggleMenu()">
-      <div class="hamburger toggle" style="display: flex; gap: 4px;">
-        <span style="width: 20px; height: 2px;"></span>
-        <span style="width: 20px; height: 2px;"></span>
-        <span style="width: 20px; height: 2px;"></span>
-      </div>
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#0a192f"
+        stroke-width="2.5">
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+      </svg>
     </div>
     <marquee class="sat-marquee" scrollamount="10" onmouseover="this.stop();" onmouseout="this.start();"
       style="z-index:11;position:absolute;top:72px;left:0;">
@@ -929,7 +991,7 @@
         <div class="why-card reveal">
           <div class="why-icon"><img src="assets/gifts.jpg" alt="Free joining gifts for new students at CSC Walajapet">
           </div>
-          <div class="why-title">Free Joining Gift</div>
+          <div class="why-title">Exciting Welcome Gifts</div>
           <div class="why-desc">Every student receives a special joining gift and stands a chance to win exciting prizes
             through our regular lucky draws.</div>
         </div>
