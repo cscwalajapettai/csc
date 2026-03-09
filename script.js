@@ -101,7 +101,7 @@ document.getElementById('enquiryForm').addEventListener('submit', function (even
 
         emailjs.send(serviceID, templateID, templateParams)
                 .then(() => {
-                        alert('Thank you! Your enquiry has been sent successfully. CSC Walajapettai will contact you soon.');
+                        alert('Thank you! Your enquiry has been sent successfully. CSC Walajapet will contact you soon.');
                         document.getElementById('enquiryForm').reset();
                         btn.innerHTML = originalText;
                         btn.disabled = false;
