@@ -1,4 +1,4 @@
-﻿/* â”€â”€â”€â”€â”
+/* â”€â”€â”€â”€â”
 €â”€â”€â”€â”€â”€â”€â”€â
 ”€â”€â”€â”€â”€â”€â”€â”€
 â”€â”€â”€â”€â”€â”€â”€â”
@@ -493,8 +493,8 @@ scale(0.95);
       #hero {
         background: 
 url('Frontoffice.jpg') 
-no-repeat center 
-center / cover;
+no-repeat top 
+center / auto;
         padding: 110px 
 0 0;
         position: 
@@ -516,11 +516,7 @@ flex-end;
         position: 
 absolute;
         inset: 0;
-        background: 
-linear-gradient(90deg, 
-rgba(13, 27, 62, 0.8) 
-0%, rgba(13, 27, 62, 
-0.2) 100%);
+        background: transparent;
         z-index: 1;
       }
   
@@ -613,11 +609,13 @@ relative;
         
 grid-template-columns: 
 1fr 1fr;
-        gap: 60px;
+        gap: 32px;
         align-items: 
 center;
         
 padding-bottom: 0;
+        max-width: 1140px;
+        margin: 0 auto;
       }
   
       .hero-pill {

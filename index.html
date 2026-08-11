@@ -97,6 +97,35 @@
 
   <link rel="stylesheet" href="style.css">
   <style>
+    :root {
+      --fixed-nav-height: 88px;
+      --fixed-banner-height: 24px;
+    }
+
+    body {
+      padding-top: calc(var(--fixed-nav-height) + var(--fixed-banner-height));
+    }
+
+    #top-banner {
+      position: fixed;
+      top: var(--fixed-nav-height);
+      left: 0;
+      z-index: 100;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        --fixed-nav-height: 60px;
+        --fixed-banner-height: 0px;
+      }
+
+      #top-banner {
+        display: none;
+      }
+    }
+
     /* Hotfix for Contact Address Visibility */
     .map-box {
       margin-top: 28px;
@@ -314,17 +343,36 @@
     /* SAT Marquee & Modal Styles */
     .sat-marquee {
       width: 100%;
-      background: transparent;
-      color: #fff;
-      padding: 12px 0;
+      background: #0a1e3b;
+      color: #ffffff;
+      padding: 10px 0;
       font-weight: 800;
-      font-size: 15px;
-      letter-spacing: 1px;
-      position: absolute;
-      top: 80px;
-      /* Offset to appear right below the fixed navbar */
-      left: 0;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      position: relative;
+      top: auto;
+      left: auto;
       z-index: 10;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .sat-marquee-content {
+      display: inline-flex;
+      align-items: center;
+      gap: 28px;
+      text-transform: uppercase;
+      padding: 0 20px;
+      animation: marqueeScroll 18s linear infinite;
+    }
+
+    @keyframes marqueeScroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
     }
 
     .sat-modal {
@@ -392,6 +440,413 @@
     .sat-gallery-grid img:hover {
       transform: scale(1.05);
     }
+
+    /* ── Independence Day Hero Animations ── */
+    @keyframes pulseBadge {
+
+      0%,
+      100% {
+        transform: scale(1);
+        box-shadow: 0 4px 18px rgba(255, 153, 51, 0.4);
+      }
+
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 28px rgba(255, 153, 51, 0.75);
+      }
+    }
+
+    @keyframes floatGift {
+
+      0%,
+      100% {
+        transform: translateY(0px) rotate(-2deg);
+      }
+
+      50% {
+        transform: translateY(-8px) rotate(2deg);
+      }
+    }
+
+    @keyframes cardFloat {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-6px);
+      }
+    }
+
+    @keyframes idParticleFall {
+      0% {
+        transform: translateY(-20px) rotate(0deg);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      90% {
+        opacity: 0.7;
+      }
+
+      100% {
+        transform: translateY(calc(100vh + 40px)) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .id-particle {
+      position: absolute;
+      top: -20px;
+      font-size: 20px;
+      animation: idParticleFall 6s linear infinite;
+      opacity: 0;
+    }
+
+    /* ── Freedom Day Hero Design (Image 2 Matching) ── */
+    #hero {
+      position: relative;
+      background: linear-gradient(135deg, #09182b 0%, #0e2b1e 50%, #0a1f14 100%);
+      overflow: hidden;
+      padding-top: 30px;
+      padding-bottom: 50px;
+    }
+
+    .fd-bg-streaks {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .fd-streak {
+      position: absolute;
+      transform: rotate(-30deg);
+      border-radius: 100px;
+    }
+
+    .fd-streak-1 {
+      top: -120px;
+      left: -150px;
+      width: 1000px;
+      height: 320px;
+      background: linear-gradient(120deg, rgba(255, 153, 51, 0.8), rgba(255, 153, 51, 0.25), transparent);
+      filter: blur(45px);
+      opacity: 0.85;
+    }
+
+    .fd-streak-2 {
+      top: 15%;
+      left: 5%;
+      width: 1100px;
+      height: 340px;
+      background: linear-gradient(120deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.08), transparent);
+      filter: blur(55px);
+      opacity: 0.75;
+    }
+
+    .fd-streak-3 {
+      bottom: -100px;
+      right: -120px;
+      width: 1000px;
+      height: 320px;
+      background: linear-gradient(120deg, rgba(19, 136, 8, 0.85), rgba(40, 167, 69, 0.25), transparent);
+      filter: blur(45px);
+      opacity: 0.9;
+    }
+
+    .fd-gate-wrap {
+      position: absolute;
+      left: 2%;
+      bottom: 0;
+      z-index: 1;
+      opacity: 0.25;
+      pointer-events: none;
+      width: 220px;
+    }
+
+    .fd-circuit-wrap {
+      position: absolute;
+      right: 0;
+      top: 10%;
+      z-index: 1;
+      opacity: 0.3;
+      pointer-events: none;
+      width: 300px;
+    }
+
+    .fd-hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 32px;
+      align-items: center;
+      position: relative;
+      z-index: 3;
+    }
+
+    @media (max-width: 992px) {
+      .fd-hero-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .fd-headline {
+      font-family: 'Sora', sans-serif;
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 768px) {
+      .fd-headline {
+        font-size: 28px;
+      }
+    }
+
+    .fd-hl-saffron {
+      color: #ff9933;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+    }
+
+    .fd-hl-white {
+      color: #ffffff;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+    }
+
+    .fd-hl-green {
+      color: #28a745;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+    }
+
+    .fd-sub {
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 18px;
+      line-height: 1.35;
+      margin: 16px 0 24px;
+      letter-spacing: 0.5px;
+      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.95);
+    }
+
+    @media (max-width: 768px) {
+      .fd-sub {
+        font-size: 14px;
+      }
+    }
+
+    .fd-tiles {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    @media (max-width: 600px) {
+      .fd-tiles {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .fd-tile {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 14px 10px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      border: 2px solid #28a745;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .fd-tile:nth-child(1),
+    .fd-tile:nth-child(3) {
+      border-color: #ff9933;
+    }
+
+    .fd-tile:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .fd-tile-icon {
+      font-size: 22px;
+      margin-bottom: 6px;
+      line-height: 1;
+    }
+
+    .fd-tile-label {
+      color: #0a1e3b;
+      font-weight: 800;
+      font-size: 12px;
+      line-height: 1.25;
+    }
+
+    .fd-countdown-bar {
+      background: #ffffff;
+      border: 2px solid #ff9933;
+      border-radius: 14px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      flex-wrap: wrap;
+    }
+
+    .fd-cd-label {
+      color: #0a1e3b;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .fd-cd-blocks {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .fd-cd-unit {
+      background: #ffffff;
+      color: #0a1e3b;
+      border: 1.5px solid #d0d7de;
+      border-radius: 8px;
+      padding: 4px 8px;
+      text-align: center;
+      font-weight: 900;
+      font-size: 17px;
+      min-width: 44px;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+
+    .fd-cd-unit small {
+      display: block;
+      font-size: 8px;
+      color: #555555;
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-top: 1px;
+    }
+
+    .fd-cd-sep {
+      color: #0a1e3b;
+      font-weight: 900;
+      font-size: 16px;
+    }
+
+    .fd-enroll-btn {
+      background: linear-gradient(135deg, #ffaa00, #e67e00);
+      color: #ffffff !important;
+      font-weight: 800;
+      font-size: 14px;
+      padding: 10px 24px;
+      border-radius: 10px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(255, 153, 51, 0.45);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: inline-block;
+    }
+
+    .fd-enroll-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(255, 153, 51, 0.65);
+    }
+
+    .fd-bottom-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: rgba(255, 255, 255, 0.95);
+      font-size: 13px;
+      font-weight: 700;
+      margin-top: 14px;
+    }
+
+    .fd-iso-badge {
+      background: #445b73;
+      /* solid background instead of rgba */
+      padding: 3px 12px;
+      border-radius: 12px;
+    }
+
+    .fd-img-card {
+      position: relative;
+      background: #ffffff;
+      border: 3px solid #28a745;
+      border-radius: 24px;
+      padding: 16px;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+    }
+
+    .fd-live-badge {
+      position: absolute;
+      top: 26px;
+      right: 26px;
+      z-index: 5;
+      background: #28a745;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 6px 14px;
+      border-radius: 20px;
+      box-shadow: 0 4px 14px rgba(40, 167, 69, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    .fd-live-dot {
+      width: 8px;
+      height: 8px;
+      background: #ffffff;
+      border-radius: 50%;
+      animation: blinkDot 1s infinite alternate;
+    }
+
+    @keyframes blinkDot {
+      from {
+        opacity: 0.3;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .fd-lab-img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      border-radius: 16px;
+      display: block;
+    }
+
+    .fd-img-label {
+      text-align: center;
+      color: #0a1e3b;
+      font-weight: 900;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      margin-top: 14px;
+      line-height: 1.35;
+    }
+
+    .fd-tc-strip {
+      height: 4px;
+      background: linear-gradient(90deg, #ff9933 33%, #ffffff 33% 66%, #138808 66%);
+      border-radius: 2px;
+      margin-top: 12px;
+    }
+
 
     /* ── Section Gradient Backgrounds ── */
     #why {
@@ -502,9 +957,6 @@
         right: 0;
       }
 
-      .sat-marquee {
-        top: 60px !important;
-      }
 
       .hamburger {
         display: flex;
@@ -561,6 +1013,13 @@
         z-index: 11;
         margin-top: 0;
         display: block;
+        font-size: 11px !important;
+        letter-spacing: 0.3px !important;
+      }
+
+      /* On mobile, the fixed nav is hidden so zero out the marquee wrapper offset */
+      .marquee-wrapper {
+        margin-top: 0 !important;
       }
 
       /* Push hero body below the header+marquee area */
@@ -771,14 +1230,51 @@
   </nav>
 
   <!-- ══════════════════════════════════
-  HERO
+  HERO & FREEDOM OFFER
 ══════════════════════════════════ -->
-  <section id="hero"
-    style="padding-top:105px;position:relative;background: url('assets/Frontoffice.jpg') no-repeat center center / cover;"
-    class="hero-section">
-    <div
-      style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,25,47,0.15) 0%,rgba(255,255,255,0.05) 100%);z-index:1;">
+  <!-- Top Independence Day Marquee Ticker -->
+  <div id="top-banner">
+    <div style="background: linear-gradient(90deg, #ff9933 0%, #e67e00 30%, #0a1e3b 50%, #138808 100%); height: 3px; width: 100%;"></div>
+    <div class="sat-marquee"
+      style="background:#0a1e3b;color:#ffffff;padding:9px 0;font-weight:800;font-size:13px;letter-spacing:0.6px;white-space:nowrap;">
+      <div class="sat-marquee-content">
+        <span style="font-size:15px;">🇮🇳</span>
+        <b style="color:#ff9933;">INDIA'S 80TH INDEPENDENCE DAY</b>
+        <span style="color:rgba(255,255,255,0.5);">•</span>
+        <b style="color:#ffffff;">15TH AUGUST 2026</b>
+        <span style="color:rgba(255,255,255,0.5);">•</span>
+        <b style="color:#4ade80;">🔥 65% OFF ON EACH COURSE!</b>
+        <span style="color:rgba(255,255,255,0.5);">•</span>
+        <b style="color:#ff9933;">FREE GIFT ON ENROLLMENT!</b>
+        <span style="color:rgba(255,255,255,0.5);">•</span>
+        <span style="font-size:15px;">⏰</span>
+        <b style="background:linear-gradient(90deg,#ff4444,#ff9933);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:14px;">LAST DAY: 15TH AUGUST — HURRY!</b>
+        <span style="color:rgba(255,255,255,0.5);">•</span>
+        <span style="font-size:15px;">🎁</span>
+        <b style="color:#ffffff;">ENROLL NOW — DON'T MISS OUT!</b>
+        <span style="color:rgba(255,255,255,0.5);">•</span>
+        <span style="font-size:15px;">🇮🇳</span>
+        <b style="color:#ff9933;">INDIA'S 80TH INDEPENDENCE DAY</b>
+        <span style="color:rgba(255,255,255,0.5);">•</span>
+        <b style="color:#ffffff;">15TH AUGUST 2026</b>
+        <span style="color:rgba(255,255,255,0.5);">•</span>
+        <b style="color:#4ade80;">🔥 65% OFF ON EACH COURSE!</b>
+        <span style="color:rgba(255,255,255,0.5);">•</span>
+        <b style="color:#ff9933;">FREE GIFT ON ENROLLMENT!</b>
+        <span style="color:rgba(255,255,255,0.5);">•</span>
+        <span style="font-size:15px;">⏰</span>
+        <b style="background:linear-gradient(90deg,#ff4444,#ff9933);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:14px;">LAST DAY: 15TH AUGUST — HURRY!</b>
+        <span style="color:rgba(255,255,255,0.5);">•</span>
+        <span style="font-size:15px;">🎁</span>
+        <b style="color:#ffffff;">ENROLL NOW — DON'T MISS OUT!</b>
+      </div>
     </div>
+    <div style="background: linear-gradient(90deg, #138808 0%, #0a1e3b 50%, #ff9933 70%, #e67e00 100%); height: 3px; width: 100%;"></div>
+  </div>
+
+  <section id="hero"
+    style="padding-top:40px;padding-bottom:60px;position:relative;background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url('Gemini_Generated_Image_hi2tw9hi2tw9hi2t.png') no-repeat top center / auto;overflow:hidden;"
+    class="hero-section">
 
     <!-- Mobile Header (Visible only on mobile via CSS) -->
     <div class="wrap" style="position:relative; z-index:12;">
@@ -796,108 +1292,207 @@
         <line x1="3" y1="18" x2="21" y2="18" />
       </svg>
     </div>
-    <marquee class="sat-marquee" scrollamount="10" onmouseover="this.stop();" onmouseout="this.start();"
-      style="z-index:11;position:absolute;top:72px;left:0;">
-      <span style="display:inline-flex;align-items:center;vertical-align:middle;gap:15px;text-transform:uppercase;">
-        <span style="color:var(--yellow)">🎓</span> <b>SAT EXAM – 29TH MARCH (SUNDAY)</b> <span
-          style="color:var(--yellow)">🎓</span> FREE ADMIT CARD! GET YOUR MODEL QUESTION PAPERS NOW!
-        <button onclick="openSatGallery()"
-          style="background:var(--yellow);color:var(--navy);border:none;padding:6px 18px;border-radius:20px;font-weight:800;font-size:13px;cursor:pointer;box-shadow:0 4px 10px rgba(245,196,0,0.3);margin-right:40px;transition:0.2s;">View
-          SAT Details ➡</button>
-      </span>
-      <span style="display:inline-flex;align-items:center;vertical-align:middle;gap:15px;text-transform:uppercase;">
-        <span style="color:var(--yellow)">🎓</span> <b>SAT EXAM – 29TH MARCH (SUNDAY)</b> <span
-          style="color:var(--yellow)">🎓</span> FREE ADMIT CARD! GET YOUR MODEL QUESTION PAPERS NOW!
-        <button onclick="openSatGallery()"
-          style="background:var(--yellow);color:var(--navy);border:none;padding:6px 18px;border-radius:20px;font-weight:800;font-size:13px;cursor:pointer;box-shadow:0 4px 10px rgba(245,196,0,0.3);margin-right:40px;transition:0.2s;">View
-          SAT Details ➡</button>
-      </span>
-    </marquee>
-
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
 
     <div class="wrap" style="position:relative;z-index:2;padding-top:10px;">
-      <div class="hero-body">
+      <div class="hero-body" style="grid-template-columns: 1.05fr 0.95fr; gap: 40px; align-items: flex-start;">
 
         <!-- LEFT -->
         <div class="reveal">
           <h1 class="hero-h1">
-            Best <em>Software Training</em><br>Institute in Walajapet
+            <span class="fd-hl-saffron">Best Software</span><br>
+            <span class="fd-hl-white">Training Institute</span><br>
+            <span class="fd-hl-green">in Walajapet</span>
           </h1>
-          <p class="hero-p">
-            CSC Computer Software College is widely recognized as the best institute in Walajapet. We
-            offer certified Diploma courses in Python, Java, AI, and TallyPrime. Enroll at the most trusted software
-            training center today.
+          <p class="hero-p" style="font-size: 15px; color: rgba(255,255,255,0.92); line-height: 1.65; max-width: 530px;">
+            CSC Computer Software College is widely recognized as the premier IT training institute in Walajapet. We
+            offer industry-certified Diploma & Certificate courses in Python, Java, AI, and TallyPrime.
           </p>
-          <div class="hero-addr">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
-              <circle cx="12" cy="9" r="2.5" />
-            </svg>
-            54A, Kamarajar Street, Walajapet – 632 513 &nbsp;|&nbsp; Ph: 9003803703
-          </div>
-          <div class="hero-btns">
-            <a href="#courses" class="btn btn-blue">Explore Courses</a>
-            <a href="tel:9003803703" class="btn btn-outline">Call Us Now</a>
-          </div>
-          <div class="hero-stats">
-            <div class="hs">
-              <div class="hs-num">5000+</div>
-              <div class="hs-label">Students Trained</div>
+
+
+          <!-- FREEDOM OFFER DETAILS (Pamphlet Style Card) -->
+          <div id="freedom-offer-card"
+            style="border-radius:14px;margin:12px 0;max-width:460px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,0.6);animation:cardFloat 4s ease-in-out infinite;">
+
+            <!-- Header: Amber-to-Green gradient like pamphlet -->
+            <div
+              style="background:linear-gradient(90deg,#e67e00 0%,#ff9933 40%,#138808 100%);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:13px;letter-spacing:0.3px;color:rgba(255,255,255,0.75);font-weight:700;font-style:italic;">IN</span>
+                <span style="color:#fff;font-weight:900;font-size:13px;letter-spacing:0.8px;text-shadow:0 2px 6px rgba(0,0,0,0.4);text-transform:uppercase;">FREEDOM OFFER LIVE!</span>
+              </div>
+              <span
+                style="background:#fff;color:#0a1e3b;font-size:9px;font-weight:900;padding:4px 10px;border-radius:20px;letter-spacing:0.6px;box-shadow:0 3px 10px rgba(0,0,0,0.25);text-transform:uppercase;">15 AUG ONLY</span>
             </div>
-            <div class="hs">
-              <div class="hs-num">12+</div>
-              <div class="hs-label">Diploma Courses</div>
-            </div>
-            <div class="hs">
-              <div class="hs-num">ISO</div>
-              <div class="hs-label">9001:2015 Certified</div>
+
+            <!-- Body: Dark background like screenshot -->
+            <div style="background:#1a2035;padding:10px 14px;">
+
+              <!-- Headline -->
+              <p style="color:#ffffff;font-size:12px;font-weight:800;margin:0 0 8px;letter-spacing:0.2px;line-height:1.4;">
+                🎁 Get <span style="color:#ff9933;font-size:15px;font-weight:900;">65% OFF</span> on each course +
+                <strong style="color:#4ade80;">Free Gift Pack</strong> on enrollment!
+                <span style="color:#ff4444;font-size:10px;"> ⏰ Last day: 15th Aug!</span>
+              </p>
+
+              <!-- 2x2 Feature Tiles -->
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;">
+
+                <!-- Tile 1: Exclusive Discounts (amber) -->
+                <div
+                  style="background:#262d42;border:1px solid rgba(255,153,51,0.4);border-radius:8px;padding:6px 8px;display:flex;align-items:center;gap:8px;">
+                  <div style="width:26px;height:26px;background:rgba(255,153,51,0.18);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <span style="font-size:13px;font-weight:900;color:#ff9933;">%</span>
+                  </div>
+                  <div>
+                    <div style="color:#fff;font-size:10px;font-weight:800;line-height:1.2;">Exclusive</div>
+                    <div style="color:#ff9933;font-size:9px;font-weight:700;">Discounts</div>
+                  </div>
+                </div>
+
+                <!-- Tile 2: Free Study Materials (green) -->
+                <div
+                  style="background:#262d42;border:1px solid rgba(74,222,128,0.4);border-radius:8px;padding:6px 8px;display:flex;align-items:center;gap:8px;">
+                  <div style="width:26px;height:26px;background:rgba(74,222,128,0.15);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <span style="font-size:13px;">📚</span>
+                  </div>
+                  <div>
+                    <div style="color:#fff;font-size:10px;font-weight:800;line-height:1.2;">Free Study</div>
+                    <div style="color:#4ade80;font-size:9px;font-weight:700;">Materials</div>
+                  </div>
+                </div>
+
+                <!-- Tile 3: Free Soft Skills (amber) -->
+                <div
+                  style="background:#262d42;border:1px solid rgba(255,153,51,0.4);border-radius:8px;padding:6px 8px;display:flex;align-items:center;gap:8px;">
+                  <div style="width:26px;height:26px;background:rgba(255,153,51,0.18);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <span style="font-size:13px;">🎓</span>
+                  </div>
+                  <div>
+                    <div style="color:#fff;font-size:10px;font-weight:800;line-height:1.2;">Free Soft Skills</div>
+                    <div style="color:#ff9933;font-size:9px;font-weight:700;">Training</div>
+                  </div>
+                </div>
+
+                <!-- Tile 4: ISO Certified Diploma (green) -->
+                <div
+                  style="background:#262d42;border:1px solid rgba(74,222,128,0.4);border-radius:8px;padding:6px 8px;display:flex;align-items:center;gap:8px;">
+                  <div style="width:26px;height:26px;background:rgba(74,222,128,0.15);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <span style="font-size:13px;">🏅</span>
+                  </div>
+                  <div>
+                    <div style="color:#fff;font-size:10px;font-weight:800;line-height:1.2;">ISO Certified</div>
+                    <div style="color:#4ade80;font-size:9px;font-weight:700;">Diploma</div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Countdown + Enroll row -->
+              <div
+                style="background:#262d42;border-radius:8px;padding:8px 10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;border:1px solid rgba(255,255,255,0.08);">
+
+                <!-- Timer -->
+                <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+                  <span style="font-size:13px;">⏱️</span>
+                  <span id="cd-label" style="font-size:9px;font-weight:900;color:#ff9933;text-transform:uppercase;letter-spacing:0.6px;white-space:nowrap;">OFFER ENDS:</span>
+                  <div style="display:flex;gap:3px;align-items:center;">
+                    <!-- Days -->
+                    <div style="background:#1a2035;border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:3px 6px;text-align:center;min-width:32px;">
+                      <span id="cd-days" style="font-weight:900;font-size:13px;color:#fff;display:block;line-height:1;">00</span>
+                      <span style="font-size:6px;color:#9ca3af;text-transform:uppercase;font-weight:700;">DAYS</span>
+                    </div>
+                    <span style="color:#ff9933;font-weight:900;font-size:13px;line-height:1;">:</span>
+                    <!-- Hours -->
+                    <div style="background:#1a2035;border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:3px 6px;text-align:center;min-width:32px;">
+                      <span id="cd-hrs" style="font-weight:900;font-size:13px;color:#fff;display:block;line-height:1;">00</span>
+                      <span style="font-size:6px;color:#9ca3af;text-transform:uppercase;font-weight:700;">HRS</span>
+                    </div>
+                    <span style="color:#ff9933;font-weight:900;font-size:13px;line-height:1;">:</span>
+                    <!-- Minutes -->
+                    <div style="background:#1a2035;border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:3px 6px;text-align:center;min-width:32px;">
+                      <span id="cd-min" style="font-weight:900;font-size:13px;color:#fff;display:block;line-height:1;">00</span>
+                      <span style="font-size:6px;color:#9ca3af;text-transform:uppercase;font-weight:700;">MIN</span>
+                    </div>
+                    <span style="color:#ff9933;font-weight:900;font-size:13px;line-height:1;">:</span>
+                    <!-- Seconds -->
+                    <div style="background:#1a2035;border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:3px 6px;text-align:center;min-width:32px;">
+                      <span id="cd-sec" style="font-weight:900;font-size:13px;color:#fff;display:block;line-height:1;">00</span>
+                      <span style="font-size:6px;color:#9ca3af;text-transform:uppercase;font-weight:700;">SEC</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Enroll Button -->
+                <a href="#contact"
+                  style="background:linear-gradient(135deg,#ff9933,#e67e00);color:#fff;font-weight:900;font-size:11px;padding:8px 16px;border-radius:8px;text-decoration:none;box-shadow:0 4px 14px rgba(255,153,51,0.5);transition:transform 0.2s,box-shadow 0.2s;white-space:nowrap;letter-spacing:0.3px;"
+                  onmouseover="this.style.transform='scale(1.06)';this.style.boxShadow='0 8px 26px rgba(255,153,51,0.7)'"
+                  onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 14px rgba(255,153,51,0.5)'">
+                  Enroll Now →
+                </a>
+
+              </div>
             </div>
           </div>
+
         </div>
 
-        <!-- RIGHT -->
-        <div class="hero-cards reveal" style="display: flex; flex-direction: column; gap: 20px; align-items: center;">
-          <!-- Lab Image with Badge Overlaid -->
+        <!-- RIGHT: Photo Showcase Cards -->
+        <div class="hero-cards reveal" style="display: flex; flex-direction: column; gap: 18px; align-items: center; margin-top: -10px;">
+          <!-- Lab Image with Glowing Badge Overlaid -->
           <div
-            style="position: relative; width: 100%; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1);">
+            style="position: relative; width: 100%; border-radius: 18px; overflow: hidden; box-shadow: 0 18px 45px rgba(0,0,0,0.65); border: 2.5px solid rgba(255, 153, 51, 0.6); background: #0a1e3b;">
             <img src="assets/Lab.jpeg" alt="Modern computer lab at CSC Computer Software College Walajapet"
-              style="width: 100%; height: 260px; object-fit: cover; display: block;">
-            <div class="hero-pill"
-              style="position: absolute; top: 15px; right: 15px; margin: 0; background: rgba(245, 196, 0, 0.9); color: #0d1b3e; font-weight: 800; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
-              <span></span> Admissions Open
+              style="width: 100%; height: 275px; object-fit: cover; display: block; transition: transform 0.4s ease;"
+              onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+            <div
+              style="position: absolute; top: 16px; right: 16px; background: linear-gradient(135deg, #f5c400, #ff9933); color: #0d1b3e; font-weight: 900; font-size: 11px; padding: 7px 16px; border-radius: 20px; box-shadow: 0 6px 20px rgba(0,0,0,0.4); text-transform: uppercase; letter-spacing: 0.8px; display: flex; align-items: center; gap: 8px;">
+              <span style="width: 8px; height: 8px; background: #0d1b3e; border-radius: 50%;"></span> Admissions Open 2025-26
             </div>
           </div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%;">
             <div
-              style="position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1);">
+              style="position: relative; border-radius: 16px; overflow: hidden; box-shadow: 0 12px 30px rgba(0,0,0,0.55); border: 2px solid rgba(0, 230, 118, 0.5); background: #0a1e3b;">
               <img src="assets/Classroom.jpeg" alt="Well-equipped smart classroom at CSC Walajapet"
-                style="width: 100%; height: 165px; object-fit: cover; display: block;">
+                style="width: 100%; height: 165px; object-fit: cover; display: block; transition: transform 0.4s ease;"
+                onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
               <div
-                style="position: absolute; bottom: 0; left: 0; right: 0; padding: 10px; background: rgba(13, 27, 62, 0.7); color: #fff; font-size: 11px; font-weight: 600;">
+                style="position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 14px; background: linear-gradient(180deg, transparent 0%, rgba(10, 25, 47, 0.95) 100%); color: #fff; font-size: 12px; font-weight: 800; letter-spacing: 0.3px;">
                 Modern Classroom</div>
             </div>
             <div
-              style="position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1);">
+              style="position: relative; border-radius: 16px; overflow: hidden; box-shadow: 0 12px 30px rgba(0,0,0,0.55); border: 2px solid rgba(0, 230, 118, 0.5); background: #0a1e3b;">
               <img src="assets/Frontlook.jpg" alt="Entrance of CSC Computer Software College in Walajapet"
-                style="width: 100%; height: 165px; object-fit: cover; display: block;">
+                style="width: 100%; height: 165px; object-fit: cover; display: block; transition: transform 0.4s ease;"
+                onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
               <div
-                style="position: absolute; bottom: 0; left: 0; right: 0; padding: 10px; background: rgba(13, 27, 62, 0.7); color: #fff; font-size: 11px; font-weight: 600;">
+                style="position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 14px; background: linear-gradient(180deg, transparent 0%, rgba(10, 25, 47, 0.95) 100%); color: #fff; font-size: 12px; font-weight: 800; letter-spacing: 0.3px;">
                 College Entrance</div>
             </div>
           </div>
+
+          <div class="hero-meta" style="display:flex;flex-direction:column;gap:18px;max-width:100%;width:100%;margin-top:10px;">
+            <div class="hero-addr" style="display:flex;align-items:center;gap:8px;color:rgba(255,255,255,0.85);font-size:13px;font-weight:500;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                <circle cx="12" cy="9" r="2.5" />
+              </svg>
+              54A, Kamarajar Street, Walajapet – 632 513 | Ph: 9003803703
+            </div>
+            <div class="hero-btns" style="display:flex;gap:12px;flex-wrap:wrap;">
+              <a href="#courses" class="btn btn-blue">Explore Courses</a>
+              <a href="tel:9003803703" class="btn btn-outline">Call Us Now</a>
+            </div>
+
+          </div>
         </div>
+
       </div>
 
-      <!-- Wave -->
-      <div class="hero-wave">
-        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" fill="#ffffff">
-          <path
-            d="M0,64L80,58.7C160,53,320,43,480,48C640,53,800,75,960,74.7C1120,75,1280,53,1360,42.7L1440,32L1440,80L1360,80C1280,80,1120,80,960,80C800,80,640,80,480,80C320,80,160,80,80,80L0,80Z" />
-        </svg>
-      </div>
+
+    </div>
   </section>
+
+
 
   <!-- ══════════════════════════════════
   WHY CSC
@@ -1429,17 +2024,23 @@
 
       </div><!-- /courses-grid -->
 
-      <!-- Free Book Banner -->
-      <div class="free-banner reveal">
-        <div class="free-tag">FREE</div>
+      <!-- Freedom Offer Banner -->
+      <div class="free-banner reveal"
+        style="background:linear-gradient(135deg,#0a1e3b 60%,#1a3a2a 100%);border:2px solid #ff9933;">
+        <div class="free-tag"
+          style="background:linear-gradient(135deg,#ff9933,#138808);color:#fff;font-size:11px;line-height:1.2;text-align:center;padding:10px 14px;">
+          🇮🇳<br>FREE<br>GIFT</div>
         <div class="free-info">
-          <div class="free-title">Free Admit Card &amp; Model Papers – SAT Exam</div>
-          <div class="free-desc">Free model question papers available now. Exam date: 29th March (Sunday).</div>
+          <div class="free-title" style="color:#fff;">🎉 Independence Day <span
+              style="color:#ff9933;font-weight:900;">Freedom Offer</span> — 15th August</div>
+          <div class="free-desc" style="color:#cde;">Avail our exclusive Freedom Offer &amp; get a FREE GIFT on
+            enrolment. Hurry up — limited period offer!</div>
         </div>
         <div class="free-pill"
-          style="cursor:pointer;transition:transform 0.2s;box-shadow:0 4px 12px rgba(245,200,0,0.3);"
-          onclick="openSatGallery()" onmouseover="this.style.transform='scale(1.05)'"
-          onmouseout="this.style.transform='scale(1)'">📅 Exam: 29th March (Sunday) <span>(Click to View)</span></div>
+          style="cursor:pointer;transition:transform 0.2s;background:linear-gradient(90deg,#ff9933,#138808);color:#fff;border:none;box-shadow:0 4px 14px rgba(255,153,51,0.45);"
+          onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"
+          onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">🕊️ Enroll &amp;
+          Claim Gift <span>(Click)</span></div>
       </div>
 
     </div>
@@ -1986,6 +2587,66 @@
     <img id="modalImage" src="" alt="Big view" onclick="event.stopPropagation()">
   </div>
 
+  <script src="script.js"></script>
+  <script>
+    (function () {
+      const labelEl = document.getElementById('cd-label');
+      const dEl = document.getElementById('cd-days');
+      const hEl = document.getElementById('cd-hrs');
+      const mEl = document.getElementById('cd-min');
+      const sEl = document.getElementById('cd-sec');
+
+      function getTomorrowStart(now) {
+        return new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 9, 0, 0, 0);
+      }
+
+      function getTargetEnd(now) {
+        let end = new Date(now.getFullYear(), 7, 16, 9, 0, 0, 0);
+        if (now > end) {
+          end = new Date(now.getFullYear() + 1, 7, 16, 9, 0, 0, 0);
+        }
+        return end;
+      }
+
+      function updateCountdown() {
+        const now = new Date();
+        const startDate = getTomorrowStart(now);
+        const endDate = getTargetEnd(now);
+        let targetDate;
+        let labelText = 'OFFER ENDS:';
+
+        if (now < startDate) {
+          targetDate = startDate;
+          labelText = 'OFFER STARTS:';
+        } else if (now <= endDate) {
+          targetDate = endDate;
+          labelText = 'OFFER ENDS:';
+        } else {
+          if (labelEl) labelEl.textContent = 'OFFER ENDED';
+          if (dEl) dEl.textContent = '00';
+          if (hEl) hEl.textContent = '00';
+          if (mEl) mEl.textContent = '00';
+          if (sEl) sEl.textContent = '00';
+          return;
+        }
+
+        const diff = Math.max(0, Math.floor((targetDate - now) / 1000));
+        const days = Math.floor(diff / 86400);
+        const hours = Math.floor((diff % 86400) / 3600);
+        const minutes = Math.floor((diff % 3600) / 60);
+        const seconds = diff % 60;
+
+        if (labelEl) labelEl.textContent = labelText;
+        if (dEl) dEl.textContent = String(days).padStart(2, '0');
+        if (hEl) hEl.textContent = String(hours).padStart(2, '0');
+        if (mEl) mEl.textContent = String(minutes).padStart(2, '0');
+        if (sEl) sEl.textContent = String(seconds).padStart(2, '0');
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    })();
+  </script>
   <script>
     function openImageModal(src) {
       const modal = document.getElementById('imageModal');

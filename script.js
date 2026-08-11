@@ -112,3 +112,63 @@ document.getElementById('enquiryForm').addEventListener('submit', function (even
                         btn.disabled = false;
                 });
 });
+
+// Freedom Offer Live Countdown Timer
+function startFreedomCountdown() {
+    const OFFER_END_HOUR = 9;
+    const OFFER_END_MINUTE = 0;
+    const OFFER_END_SECOND = 0;
+
+    function getTargetEnd(now) {
+        let end = new Date(now.getFullYear(), 7, 16, OFFER_END_HOUR, OFFER_END_MINUTE, OFFER_END_SECOND, 0);
+        if (now > end) {
+            end = new Date(now.getFullYear() + 1, 7, 16, OFFER_END_HOUR, OFFER_END_MINUTE, OFFER_END_SECOND, 0);
+        }
+        return end;
+    }
+
+    function updateCD() {
+        const now = new Date();
+        const endDate = getTargetEnd(now);
+        const labelEl = document.getElementById('cd-label');
+        const dEl = document.getElementById('cd-days');
+        const hEl = document.getElementById('cd-hrs');
+        const mEl = document.getElementById('cd-min');
+        const sEl = document.getElementById('cd-sec');
+
+        if (!labelEl || !dEl || !hEl || !mEl || !sEl) {
+            return;
+        }
+
+        const diff = Math.max(0, Math.floor((endDate.getTime() - now.getTime()) / 1000));
+        if (diff <= 0) {
+            labelEl.innerText = 'OFFER ENDED';
+            dEl.innerText = '00';
+            hEl.innerText = '00';
+            mEl.innerText = '00';
+            sEl.innerText = '00';
+            return;
+        }
+
+        const days = Math.floor(diff / (60 * 60 * 24));
+        const hours = Math.floor((diff % (60 * 60 * 24)) / (60 * 60));
+        const minutes = Math.floor((diff % (60 * 60)) / 60);
+        const seconds = diff % 60;
+
+        labelEl.innerText = 'OFFER ENDS:';
+        dEl.innerText = String(days).padStart(2, '0');
+        hEl.innerText = String(hours).padStart(2, '0');
+        mEl.innerText = String(minutes).padStart(2, '0');
+        sEl.innerText = String(seconds).padStart(2, '0');
+    }
+
+    updateCD();
+    setInterval(updateCD, 1000);
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', startFreedomCountdown);
+} else {
+    startFreedomCountdown();
+}
+
